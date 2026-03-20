@@ -11,7 +11,7 @@ This is a graduation project which is used to predict SP500index by fusing event
 
 - 任务定义：把问题收缩成“事件发布后未来若干个 bar 的涨跌方向预测（二分类）”。
 - 文本输入：只使用 `*_full_summary.txt` 作为真实文本。
-- 时序输入：使用你截图里这种 OHLC 表结构，至少包含 `date/Open/High/Low/Close`。
+- 时序输入：使用 OHLC 表结构，至少包含 `date/Open/High/Low/Close`。
 - 融合方式：`TF-IDF + 文本统计特征 + 事件前窗口时序特征 -> Logistic Regression`
 - 对比实验：保留三组模型：
   - `text`：文本分支
@@ -22,9 +22,7 @@ This is a graduation project which is used to predict SP500index by fusing event
 这个版本的优点是：
 
 1. CPU 就能跑。
-2. 文件很少，适合毕业设计答辩时解释。
-3. 不是空架子，是真的能训练、评估、预测。
-4. 可复现性较好，训练后会保存 `aligned_samples.csv / metrics.json / model_bundle.joblib / global_importance.csv`。
+2. 可复现性较好，训练后会保存 `aligned_samples.csv / metrics.json / model_bundle.joblib / global_importance.csv`。
 
 ---
 
@@ -112,8 +110,8 @@ python sp500_event_fusion_minimal.py demo-data --out-dir ./demo_run
 
 ```bash
 python sp500_event_fusion_minimal.py train \
-  --events-root "你的 processed_events_and_counterfactuals 路径" \
-  --market-file "你的标普500行情文件.csv" \
+  --events-root "processed_events_and_counterfactuals 路径" \
+  --market-file "标普500行情文件.csv" \
   --out-dir "./artifacts" \
   --window-bars 24 \
   --future-bars 12 \
@@ -124,8 +122,8 @@ python sp500_event_fusion_minimal.py train \
 
 ```bash
 python sp500_event_fusion_minimal.py build-samples \
-  --events-root "你的 processed_events_and_counterfactuals 路径" \
-  --market-file "你的标普500行情文件.csv" \
+  --events-root "processed_events_and_counterfactuals 路径" \
+  --market-file "标普500行情文件.csv" \
   --out-csv "./aligned_samples.csv"
 ```
 
@@ -134,7 +132,7 @@ python sp500_event_fusion_minimal.py build-samples \
 ```bash
 python sp500_event_fusion_minimal.py predict \
   --bundle "./artifacts/model_bundle.joblib" \
-  --market-file "你的标普500行情文件.csv" \
+  --market-file "标普500行情文件.csv" \
   --event-type 5 \
   --publish-time "2024-03-12 08:30:00" \
   --event-text "Inflation cooled more than expected and price pressures eased." \
