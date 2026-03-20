@@ -1,11 +1,7 @@
 # Event-TimeSeries_model
 This is a graduation project which is used to predict SP500index by fusing event and time-series
-## test git
-
-## 第一周，数据获取。
 
 # 毕业设计实现说明
-
 
 ## 落地方案
 
